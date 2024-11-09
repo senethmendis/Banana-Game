@@ -58,7 +58,7 @@ function Leaderboard() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-[#3191B0] bg-opacity-80 rounded-3xl w-11/12 h-5/6 select-none">
+      <div className="bg-[#000000] bg-opacity-80 rounded-3xl w-11/12 h-5/6 select-none">
         <Profile_btn />
 
         <div className="mb-4 ml-20 text-2xl font-bold font-itim">

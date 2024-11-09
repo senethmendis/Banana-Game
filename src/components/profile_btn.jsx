@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import UserProfile from "./userProfile";
 import GameTitle from "./GameTitle";
+import { IoHomeSharp } from "react-icons/io5";
 
 function Profile_btn() {
   const navigate = useNavigate();
@@ -31,18 +32,13 @@ function Profile_btn() {
     <div className="flex justify-between items-center ">
       <div className="ml-10 m-14 inline-flex justify-center items-center">
         <motion.div
-          className="box"
+          className="box mr-6"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
           <Link to="/Home">
-            <img
-              src=""
-              alt=""
-              srcSet="/home.png"
-              className="pr-1 w-16 cursor-pointer mr-10 select-none"
-            />
+            <IoHomeSharp size={50} color="white" />
           </Link>
         </motion.div>
         {/* title img */}

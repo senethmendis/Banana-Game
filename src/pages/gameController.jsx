@@ -168,6 +168,8 @@ function GameController() {
     startTimer();
   };
 
+  console.log(solution);
+
   return (
     <div className="flex justify-center items-center h-screen">
       {isSummaryOpen && (

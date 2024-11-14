@@ -16,8 +16,8 @@ const Home = () => {
                 <li className="transition-all hover:scale-125 m-7 w-fit">
                   <motion.div
                     className="box"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 5 }}
                   >
                     <Link to="/difficulty" className="flex gap-3">
                       <Logo /> Play
@@ -28,8 +28,8 @@ const Home = () => {
                 <li className="transition-all hover:scale-125 m-7 w-fit">
                   <motion.div
                     className="box"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 5 }}
                   >
                     <Link to="/leaderboard" className="flex gap-3">
                       {" "}
@@ -41,8 +41,8 @@ const Home = () => {
                 <li className="transition-all hover:scale-125 m-7 w-fit">
                   <motion.div
                     className="box"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    whileHover={{ scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 5 }}
                   >
                     <Link to="/instructions" className="flex gap-3">
                       {" "}

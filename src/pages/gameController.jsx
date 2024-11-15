@@ -3,6 +3,8 @@ import { Profile_btn } from "../components/profile_btn";
 import { Game_summary } from "../components/game_summary";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
+import LoadingIcon from "../assets/LoadingIcon";
+import Button from "../components/Button";
 
 function GameController() {
   const { difficulty } = useParams();
@@ -140,9 +142,9 @@ function GameController() {
   if (loading) {
     return (
       <div className="text-5xl h-screen place-content-center flex justify-center items-center">
-        <p className="spinner border-4 border-t-4 border-gray-400 h-12 w-12 rounded-full animate-spin">
-          -
-        </p>
+        <div className="spinner border-4 border-t-4 border-[#FF156D] h-12 w-12 rounded-full animate-spin">
+          <LoadingIcon />
+        </div>
         <p className="text-white border-black p-4">Loading...</p>
       </div>
     );
@@ -259,8 +261,8 @@ function GameController() {
               </div>
             </div>
 
-            <div>
-              <img src={imageUrl} alt="Tomato" className="w-full" />
+            <div className="mt-4">
+              <img src={imageUrl} alt="Tomato" className="w-full rounded-md" />
             </div>
 
             <div className="flex items-center justify-between mt-5">
@@ -282,12 +284,9 @@ function GameController() {
               ))}
             </div>
             <div className="flex justify-center">
-              <button
-                className="mt-6 bg-[#248C00] text-white rounded-3xl px-10 py-2 text-3xl font-bold font-itim"
-                onClick={RestartBtn}
-              >
+              <Button onClick={RestartBtn} className={"mt-10"}>
                 Restart
-              </button>
+              </Button>
             </div>
           </div>
         </div>

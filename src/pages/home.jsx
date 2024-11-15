@@ -54,7 +54,11 @@ const Home = () => {
               </ul>
             </div>
             <div>
-              <img src="" alt="" srcSet="logo.png" className="m-8 w-fit" />
+              <img
+                src="logo.png "
+                alt="logg img"
+                className="m-8 w-fit animate-bounce transition-all"
+              />
             </div>
           </div>
         </div>

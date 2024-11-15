@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { app } from "/firebaseConfig";
 import { getDatabase, ref, get, child, update } from "firebase/database";
 import { useEffect, useState } from "react";
+import Button from "./Button";
 
 function Game_summary({ restartGame, onClose, score, difficulty }) {
   const userId = localStorage.getItem("userId");
@@ -75,9 +76,9 @@ function Game_summary({ restartGame, onClose, score, difficulty }) {
   }, [userData]);
 
   return (
-    <div className="bg-black fixed flex justify-center items-center w-screen h-screen bg-opacity-45 select-none z-50">
+    <div className="bg-black fixed flex justify-center items-center w-screen h-screen bg-opacity-70 select-none z-50">
       <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg z-50 w-2/5 h-3/5"
+        className="bg-black border border-white  p-8 rounded-lg shadow-lg z-50 w-2/5 h-auto backdrop-blur-md"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
@@ -102,16 +103,16 @@ function Game_summary({ restartGame, onClose, score, difficulty }) {
           )}
         </div>
         <div className="flex justify-center items-center">
-          <div className="flex justify-between w-2/4">
-            <button
+          <div className="flex flex-row gap-5">
+            <Button
               className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
               onClick={playAgain}
             >
               Play Again
-            </button>
-            <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-600">
+            </Button>
+            <Button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-600">
               <Link to={"/home"}>Go to Home</Link>
-            </button>
+            </Button>
           </div>
         </div>
       </motion.div>

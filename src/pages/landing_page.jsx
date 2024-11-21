@@ -83,11 +83,11 @@ const Landing_Page = () => {
                 <Button type="button" onClick={directToRegistration}>
                   Register
                 </Button>
-              </div>
 
-              <Button type="button" onClick={directToHome}>
-                Play as Guest
-              </Button>
+                <Button type="button" onClick={directToHome}>
+                  Play as Guest
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>

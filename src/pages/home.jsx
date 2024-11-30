@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Profile_btn } from "../components/profile_btn";
 import { motion } from "framer-motion";
 import Logo from "../components/Logo";
+import Time from "../components/time";
 
 const Home = () => {
   return (

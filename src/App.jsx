@@ -9,26 +9,45 @@ import Leaderboard from "./pages/leaderboard";
 import Time from "./components/time";
 import Instructions from "./pages/instructions";
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Landing_Page />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Registration" element={<Registration />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/Difficulty" element={<Difficulty />} />
-        <Route
-          path="/GameController/:difficulty"
-          element={<GameController />}
-        />
-        <Route path="/leaderboard" element={<Leaderboard />}></Route>
-        <Route path="/instructions" element={<Instructions />}></Route>
-      </Routes>
+const App = () => {
+	return (
+		<Router>
+			<Routes>
+				<Route
+					path="/"
+					element={<Landing_Page />}
+				/>
+				<Route
+					path="/login"
+					element={<Login />}
+				/>
+				<Route
+					path="/Registration"
+					element={<Registration />}
+				/>
+				<Route
+					path="/home"
+					element={<Home />}
+				/>
+				<Route
+					path="/Difficulty"
+					element={<Difficulty />}
+				/>
+				<Route
+					path="/GameController/:difficulty"
+					element={<GameController />}
+				/>
+				<Route
+					path="/leaderboard"
+					element={<Leaderboard />}></Route>
+				<Route
+					path="/instructions"
+					element={<Instructions />}></Route>
+			</Routes>
 
-      <Time />
-    </Router>
-  );
-}
+			<Time />
+		</Router>
+	);
+};
 
 export default App;

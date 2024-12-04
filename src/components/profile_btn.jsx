@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import UserProfile from "./userProfile";
 import GameTitle from "./GameTitle";
 import { IoHomeSharp } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
+import Button from "./Button";
 
 function Profile_btn() {
   const navigate = useNavigate();
@@ -51,14 +53,10 @@ function Profile_btn() {
           whileTap={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <Menu.Button className="cursor-pointer w-fit bg-white inline-flex justify-center items-center rounded-full p-2 shadow-lg">
-            <img
-              src=""
-              alt=""
-              srcSet="/profile.png"
-              className="pr-1 select-none"
-            />
-            <p className="text-3xl font-itim select-none font-bold p-1">
+          <Menu.Button className="cursor-pointer w-fit bg-yellow-300 backdrop-blur-md gap-3 flex flex-row justify-center items-center rounded-full p-2 shadow-lg">
+            <FaRegUserCircle size={50} />
+
+            <p className="text-2xl font-itim select-none font-bold m-1 ">
               {userName}
             </p>
           </Menu.Button>
@@ -120,14 +118,14 @@ function Profile_btn() {
 
                 <Menu.Item>
                   {({ active }) => (
-                    <button
+                    <Button
                       onClick={clearUserSession}
                       className={`${
                         active ? "bg-red-500 text-white" : "text-red-600"
                       } group flex w-full items-center rounded-md px-2 py-2 text-xl font-bold font-itim`}
                     >
                       Logout
-                    </button>
+                    </Button>
                   )}
                 </Menu.Item>
               </>

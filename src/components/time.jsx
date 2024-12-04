@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
 const Time = () => {
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(null); // Initialize as null
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -11,7 +11,7 @@ const Time = () => {
       try {
         const timeResponse = await fetch(`https://worldtimeapi.org/api/ip`);
         const timeData = await timeResponse.json();
-        setTime(new Date(timeData.datetime));
+        setTime(new Date(timeData.datetime)); // Ensure time is a Date object
         setLoading(false);
       } catch (error) {
         setError("Failed to fetch data");
@@ -23,13 +23,17 @@ const Time = () => {
   }, []);
 
   useEffect(() => {
+    if (!time) return; // Prevent interval setup if time is null
+
     const interval = setInterval(() => {
-      // Update time every second
-      setTime((prevTime) => new Date(prevTime.getTime() + 1000));
+      setTime((prevTime) => {
+        if (!prevTime) return null; // Avoid operations on null
+        return new Date(prevTime.getTime() + 1000);
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [time]); // Add time as a dependency to ensure safety
 
   return (
     <div className="select-none absolute bottom-2 right-4 bg-gray-500 bg-opacity-55 rounded-lg w-52 items-center justify-center flex">
@@ -40,7 +44,7 @@ const Time = () => {
       ) : (
         <div>
           <h2 className="text-4xl font-itim text-white">
-            {format(time, "HH:mm:ss")}
+            {time ? format(time, "HH:mm:ss") : "Error"}
           </h2>
         </div>
       )}

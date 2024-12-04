@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Profile_btn } from "../components/profile_btn";
 import { motion } from "framer-motion";
 import Logo from "../components/Logo";
+import Time from "../components/time";
 
 const Home = () => {
   return (
@@ -54,7 +55,11 @@ const Home = () => {
               </ul>
             </div>
             <div>
-              <img src="" alt="" srcSet="logo.png" className="m-8 w-fit" />
+              <img
+                src="logo.png "
+                alt="logg img"
+                className="m-8 w-fit animate-bounce transition-all"
+              />
             </div>
           </div>
         </div>

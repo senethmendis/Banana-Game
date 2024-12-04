@@ -19,9 +19,9 @@ const Leaderboard = () => {
 	const dbRef = getDatabase(app);
 
 	const tabs = [
-		{ label: "Certified Cherry", value: "easy" },
-		{ label: "Getting There", value: "medium" },
-		{ label: "Tomato Crusher", value: "hard" },
+		{ label: "Easy Banana", value: "easy" },
+		{ label: "Smooth Banana", value: "medium" },
+		{ label: "Slipery Banana", value: "hard" },
 	];
 
 	const fetchLeaderboardData = async () => {

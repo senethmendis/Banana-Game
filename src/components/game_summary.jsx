@@ -7,124 +7,122 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 
 function Game_summary({ restartGame, onClose, score, difficulty }) {
-  const userId = localStorage.getItem("userId");
-  const [userData, setUserData] = useState(null);
-  const [isNewHighScore, setIsNewHighScore] = useState(false);
-  const [isUserLogged, setIIsUserLogged] = useState(false);
-  const dbRef = ref(getDatabase(app));
+	const userId = localStorage.getItem("userId");
+	const [userData, setUserData] = useState(null);
+	const [isNewHighScore, setIsNewHighScore] = useState(false);
+	const [isUserLogged, setIIsUserLogged] = useState(false);
+	const dbRef = ref(getDatabase(app));
 
-  const playAgain = () => {
-    restartGame();
-    onClose();
-  };
+	const playAgain = () => {
+		restartGame();
+		onClose();
+	};
 
-  useEffect(() => {
-    fetchUserData();
+	useEffect(() => {
+		fetchUserData();
 
-    if (userId) {
-      setIIsUserLogged(true);
-    }
-  }, []);
+		if (userId) {
+			setIIsUserLogged(true);
+		}
+	}, []);
 
-  const fetchUserData = async () => {
-    if (userId) {
-      const snapshot = await get(child(dbRef, `users/${userId}`));
-      if (snapshot.exists()) {
-        setUserData(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
-    }
-  };
+	const fetchUserData = async () => {
+		if (userId) {
+			const snapshot = await get(child(dbRef, `users/${userId}`));
+			if (snapshot.exists()) {
+				setUserData(snapshot.val());
+			} else {
+				console.log("No data available");
+			}
+		}
+	};
 
-  const updateHighScore = async () => {
-    if (userId) {
-      let scoreUpdates = {};
-      if (difficulty === "easy") {
-        scoreUpdates.easy = score;
-      } else if (difficulty === "medium") {
-        scoreUpdates.medium = score;
-      } else {
-        scoreUpdates.hard = score;
-      }
+	const updateHighScore = async () => {
+		if (userId) {
+			let scoreUpdates = {};
+			if (difficulty === "easy") {
+				scoreUpdates.easy = score;
+			} else if (difficulty === "medium") {
+				scoreUpdates.medium = score;
+			} else {
+				scoreUpdates.hard = score;
+			}
 
-      await update(child(dbRef, `users/${userId}`), scoreUpdates);
-      setIsNewHighScore(true);
-      console.log("User data updated successfully");
-    }
-  };
+			await update(child(dbRef, `users/${userId}`), scoreUpdates);
+			setIsNewHighScore(true);
+			console.log("User data updated successfully");
+		}
+	};
 
-  useEffect(() => {
-    if (userData !== null) {
-      let difficultyValue;
-      switch (difficulty) {
-        case "easy":
-          difficultyValue = userData.easy;
-          break;
-        case "medium":
-          difficultyValue = userData.medium;
-          break;
-        case "hard":
-          difficultyValue = userData.hard;
-          break;
-      }
+	useEffect(() => {
+		if (userData !== null) {
+			let difficultyValue;
+			switch (difficulty) {
+				case "easy":
+					difficultyValue = userData.easy;
+					break;
+				case "medium":
+					difficultyValue = userData.medium;
+					break;
+				case "hard":
+					difficultyValue = userData.hard;
+					break;
+			}
 
-      if (difficultyValue < score) {
-        updateHighScore();
-      }
-    }
-  }, [userData]);
+			if (difficultyValue < score) {
+				updateHighScore();
+			}
+		}
+	}, [userData]);
 
-  return (
-    <div className="bg-black fixed flex justify-center items-center w-screen h-screen bg-opacity-70 select-none z-50">
-      <motion.div
-        className="bg-black border border-white  p-8 rounded-lg shadow-lg z-50 w-2/5 h-auto backdrop-blur-md"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.5,
-          ease: [0, 0.71, 0.2, 1.01],
-        }}
-      >
-        <div className="text-center">
-          <h2 className="text-4xl font-bold text-red-600">Game Over!</h2>
-          <p className="text-2xl mt-4">Your Score: {score}</p>
-          {isNewHighScore && (
-            <p className="text-xl text-green-600 font-bold mt-2">
-              Congratulations! New high score.
-            </p>
-          )}
+	return (
+		<div className="bg-black fixed flex justify-center items-center w-screen h-screen bg-opacity-70 select-none z-50">
+			<motion.div
+				className="bg-black border border-white  p-8 rounded-lg shadow-lg z-50 w-2/5 h-auto backdrop-blur-md"
+				initial={{ opacity: 0, scale: 0.5 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{
+					duration: 0.8,
+					delay: 0.5,
+					ease: [0, 0.71, 0.2, 1.01],
+				}}>
+				<div className="text-center">
+					<h2 className="text-4xl font-bold text-red-600">Game Over!</h2>
+					<p className="text-2xl mt-4">Your Score: {score}</p>
+					{isNewHighScore && (
+						<p className="text-xl text-green-600 font-bold mt-2">
+							Congratulations! New high score.
+						</p>
+					)}
 
-          {!isUserLogged && (
-            <p className="text-xl text-black-600 font-bold mt-2">
-              Login to Save your Score!
-            </p>
-          )}
-        </div>
-        <div className="flex justify-center items-center">
-          <div className="flex flex-row gap-5">
-            <Button
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
-              onClick={playAgain}
-            >
-              Play Again
-            </Button>
-            <Button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-600">
-              <Link to={"/home"}>Go to Home</Link>
-            </Button>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
+					{!isUserLogged && (
+						<p className="text-xl text-black-600 font-bold mt-2">
+							Login to Save your Score!
+						</p>
+					)}
+				</div>
+				<div className="flex justify-center items-center">
+					<div className="flex flex-row gap-5">
+						<Button
+							className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+							onClick={playAgain}>
+							Play Again
+						</Button>
+						<Button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-red-600">
+							<Link to={"/home"}>Go to Home</Link>
+						</Button>
+					</div>
+				</div>
+			</motion.div>
+		</div>
+	);
 }
 
 Game_summary.propTypes = {
-  restartGame: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  score: PropTypes.number.isRequired,
-  difficulty: PropTypes.string.isRequired,
+	restartGame: PropTypes.func.isRequired,
+	onClose: PropTypes.func.isRequired,
+	score: PropTypes.number.isRequired,
+	difficulty: PropTypes.string.isRequired,
 };
 
 export { Game_summary };

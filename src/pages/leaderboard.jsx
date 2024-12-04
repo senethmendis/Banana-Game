@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { app } from "/firebaseConfig";
-import { getDatabase, ref, get } from "firebase/database";
+import {
+	getDatabase,
+	ref,
+	get,
+	query,
+	orderByChild,
+	limitToLast,
+} from "firebase/database"; // Add missing imports
 import Profile_btn from "../components/profile_btn";
 import { Tab } from "@headlessui/react";
 
@@ -12,29 +19,37 @@ const Leaderboard = () => {
 	const dbRef = getDatabase(app);
 
 	const tabs = [
-		{ label: "Easy Banana", value: "easy" },
-		{ label: "Smooth Banana", value: "medium" },
-		{ label: "Slipery Banana", value: "hard" },
+		{ label: "Certified Cherry", value: "easy" },
+		{ label: "Getting There", value: "medium" },
+		{ label: "Tomato Crusher", value: "hard" },
 	];
 
 	const fetchLeaderboardData = async () => {
-		const usersRef = ref(dbRef, "users");
-
 		try {
-			const snapshot = await get(usersRef);
+			const difficultyRef = query(
+				ref(dbRef, "users"),
+				orderByChild(difficulty), // Sort by the selected difficulty level
+				limitToLast(10) // Limit the results to the top 10
+			);
+
+			const snapshot = await get(difficultyRef);
 			if (snapshot.exists()) {
-				const allUsersData = [];
+				const leaderboardData = [];
 				snapshot.forEach((childSnapshot) => {
 					const user = childSnapshot.val();
-					allUsersData.push(user); // Collect all user data
+					leaderboardData.push({
+						username: user.username,
+						score: user[difficulty],
+					});
 				});
 
-				setLeaderboardData(allUsersData); // Store all data
-			} else {
-				console.log("No data available");
+				// Sort the leaderboard data by score in descending order
+				leaderboardData.sort((a, b) => b.score - a.score);
+
+				setLeaderboardData(leaderboardData);
 			}
 		} catch (error) {
-			console.error("Error fetching data:", error);
+			console.error("Error fetching leaderboard data:", error);
 		}
 	};
 
@@ -43,7 +58,7 @@ const Leaderboard = () => {
 	}, [difficulty]);
 
 	const topThreeUsers = leaderboardData.slice(0, 3);
-	const tableData = leaderboardData;
+	const tableData = leaderboardData.slice(3);
 
 	return (
 		<div className="flex justify-center items-center h-screen">
@@ -63,7 +78,7 @@ const Leaderboard = () => {
 									Select Difficulty:
 								</label>
 							</div>
-							<Tab.Group className="mt-5">
+							<Tab.Group>
 								<Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 w-2/6">
 									{tabs.map((tab, index) => (
 										<Tab
@@ -99,14 +114,14 @@ const Leaderboard = () => {
 											key={renderIndex}
 											className={`relative w-44 ${
 												renderIndex === 0 ? "h-60" : "h-48"
-											} bg-gradient-to-b from-[#fdf57d] justify-center items-center flex rounded-md`}>
+											} bg-gradient-to-b from-[#1F0541] justify-center items-center flex`}>
 											<img
 												src={`/${renderIndex + 1}.png`}
 												srcSet={`/${renderIndex + 1}.png`}
 												alt=""
 												className="h-4/6"
 											/>
-											<p className="absolute top-0 left-0 right-0 text-center text-black font-bold font-itim text-2xl mr-1">
+											<p className="absolute top-0 left-0 right-0 text-right text-white font-bold font-itim text-2xl mr-1">
 												{renderedUser.username}
 											</p>
 											<p className="absolute bottom-0 left-0 right-0 text-right text-white font-bold font-itim text-3xl mr-1">

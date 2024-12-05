@@ -1,4 +1,4 @@
-# Payment Gateway  UI UX
+# Mega Banana The Game
 ![dp](https://github.com/senethmendis/Banana-Game/blob/main/public/image.png)
 
 ### Built With
